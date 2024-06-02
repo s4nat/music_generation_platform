@@ -1,7 +1,7 @@
 // import generateRandomTone from "../middlewares/mp3Generator.js";
 import User from '../models/userModel.js'; // Import the User model
 import File from "../models/fileModel.js";
-import generateUniqueFileId from "../utils/fileUtils.js";
+import { generateUniqueFileId, deleteFileAfterDelay } from "../utils/fileUtils.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import path from 'path';
 import fs from 'fs';
@@ -32,6 +32,9 @@ const generateMusic = asyncHandler(async (req, res) => {
 
     // generate txt file and store it in the filePath
     fs.writeFileSync(filePath, textPrompt);
+
+    // Set timer to delete file from server
+    deleteFileAfterDelay(filePath, 10000);
 
     // save file object to the database
     try {
@@ -69,7 +72,7 @@ const getMusic = asyncHandler(async (req, res) => {
         res.download(filePath, (err) => {
             if (err) {
                 console.error('Error downloading file:', err);
-                res.status(500).json({ error: 'Internal Server Error' });
+                res.status(500).json({ error: 'File no longer exists on server' });
             }
         })
     }

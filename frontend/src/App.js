@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const backendUrl = 'https://wubble-test.vercel.app';
+const backendUrl = 'http://localhost:5000';
 
 axios.defaults.withCredentials = true;
 

@@ -17,7 +17,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin: "https://music-generation-platform-3xjf.vercel.app/", // Allow frontend to connect to the server
+    origin: "https://music-generation-platform-3xjf.vercel.app", // Allow frontend to connect to the server
     credentials: true, // Allow credentials
 }));
 app.use(express.json());

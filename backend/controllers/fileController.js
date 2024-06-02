@@ -19,7 +19,7 @@ const generateMusic = asyncHandler(async (req, res) => {
 
     // Create filePath to store the generated music file
     const __dirname = path.resolve();
-    const tempDir = path.join(__dirname, 'tmp', 'music_files');
+    const tempDir = path.join(__dirname, 'tmp');
     if (!fs.existsSync(tempDir)) {
         fs.mkdirSync(tempDir, { recursive: true });
     }

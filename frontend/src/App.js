@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const backendUrl = 'https://music-generation-platform-8ccw2j9s2-s4nats-projects.vercel.app';
+const backendUrl = 'https://wubble-test.vercel.app/';
 
 axios.defaults.withCredentials = true;
 

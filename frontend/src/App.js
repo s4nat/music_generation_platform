@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import getCookie from './utilities/utilCookies.js';
 
 axios.defaults.withCredentials = true;
 
@@ -11,9 +10,6 @@ function Login({ setLoggedIn, setSignUpPage }) {
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:5000/users/auth', { email, password });
-      const token = getCookie('jwt');
-      console.log("token:", token);
-      localStorage.setItem('token', token);
       localStorage.setItem('username', response.data.username);
       setLoggedIn(true);
     } catch (error) {
@@ -72,14 +68,10 @@ function Dashboard() {
   const handleGenerateMusic = async () => {
     setIsGenerating(true);
     try {
-      const token = localStorage.getItem('token');
       const username = localStorage.getItem('username');
-      console.log("token:", token);
-      console.log("username:", username);
       const response = await axios.post('http://localhost:5000/files/generate_music', { username, textPrompt }, {
         withCredentials: true // automatically sends cookies
       });
-      console.log("response:", response);
       setDownloadLink(response.data.downloadLink);
       setFileId(response.data.fileId);
     } catch (error) {
@@ -96,11 +88,8 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       await axios.post('http://localhost:5000/users/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+        withCredentials: true // automatically sends cookies
       });
-      localStorage.removeItem('token');
       window.location.href = '/login';
     } catch (error) {
       console.error('Error logging out: ', error);

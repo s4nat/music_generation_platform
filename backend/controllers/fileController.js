@@ -16,7 +16,6 @@ const generateMusic = asyncHandler(async (req, res) => {
 
     // Generate unqiue fileId fir the music file
     const fileId = generateUniqueFileId();
-    console.log('fileId:', fileId)
 
     // Create filePath to store the generated music file
     const __dirname = path.resolve();
@@ -25,7 +24,6 @@ const generateMusic = asyncHandler(async (req, res) => {
         fs.mkdirSync(tempDir, { recursive: true });
     }
     const filePath = path.join(tempDir, fileId + '.txt');
-    console.log('filePath:', filePath);
 
     // create new file object
     const file = new File({ username, fileId, filePath, textPrompt });

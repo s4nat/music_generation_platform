@@ -42,8 +42,6 @@ const createUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    console.log("LOG IN ATTEMPT:" + email + ", " + password);
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {

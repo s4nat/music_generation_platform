@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
-import createToken from "../utils/createToken.js";
+import createToken from "../utils/tokenUtils.js";
 
 const createUser = asyncHandler(async (req, res) => {
     const { username, email, password, isAdmin } = req.body;

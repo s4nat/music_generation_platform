@@ -1,7 +1,7 @@
 // import generateRandomTone from "../middlewares/mp3Generator.js";
 import User from '../models/userModel.js'; // Import the User model
 import File from "../models/fileModel.js";
-import generateUniqueFileId from "../utils/createFileId.js";
+import generateUniqueFileId from "../utils/fileUtils.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import path from 'path';
 import fs from 'fs';
@@ -39,7 +39,8 @@ const generateMusic = asyncHandler(async (req, res) => {
         res.status(201).json({
             fileId: file.fileId,
             filePath: file.filePath,
-            textPrompt: file.textPrompt
+            textPrompt: file.textPrompt,
+            downloadLink: "http://localhost:5000/files/download/" + file.fileId,
         });
     } catch (error) {
         res.status(400);

@@ -1,5 +1,6 @@
 //packages
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
@@ -15,6 +16,10 @@ connectDB();
 
 const app = express();
 
+app.use(cors({
+    origin: ["http://localhost:3000"], // Specify the exact origin
+    credentials: true, // Allow credentials
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

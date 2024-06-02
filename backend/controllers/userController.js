@@ -23,14 +23,14 @@ const createUser = asyncHandler(async (req, res) => {
 
     try {
         await user.save();
-        createToken(res, user._id),
+        createToken(res, user._id);
 
-            res.status(201).json({
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                isAdmin: user.isAdmin,
-            });
+        res.status(201).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
     } catch (error) {
         res.status(400);
         console.error(error);
@@ -42,8 +42,7 @@ const createUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    console.log(email);
-    console.log(password);
+    console.log("LOG IN ATTEMPT:" + email + ", " + password);
 
     const existingUser = await User.findOne({ email });
 

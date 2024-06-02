@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 // Utilities
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import fileRoutes from "./routes/fileRoutes.js";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/users", userRoutes);
+app.use("/files", fileRoutes);
 
 
 app.get("/", (req, res) => {

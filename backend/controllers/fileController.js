@@ -19,7 +19,7 @@ const generateMusic = asyncHandler(async (req, res) => {
 
     // Create filePath to store the generated music file
     const __dirname = path.resolve();
-    const tempDir = path.join(__dirname, 'temp', 'music_files');
+    const tempDir = path.join(__dirname, 'tmp', 'music_files');
     if (!fs.existsSync(tempDir)) {
         fs.mkdirSync(tempDir, { recursive: true });
     }
@@ -41,7 +41,7 @@ const generateMusic = asyncHandler(async (req, res) => {
             fileId: file.fileId,
             filePath: file.filePath,
             textPrompt: file.textPrompt,
-            downloadLink: "http://localhost:5000/files/download/" + file.fileId,
+            downloadLink: "https://wubble-test.vercel.app/files/download/" + file.fileId,
         });
     } catch (error) {
         res.status(400);

@@ -22,7 +22,7 @@
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "*"
+                    "value": "https://music-generation-platform-3xjf.vercel.app"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",

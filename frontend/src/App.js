@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const backendUrl = 'http://localhost:5000';
+// const backendUrl = 'http://localhost:5000';
 
 axios.defaults.withCredentials = true;
 
@@ -11,7 +11,7 @@ function Login({ setLoggedIn, setSignUpPage }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/users/auth`, { email, password });
+      const response = await axios.post(`/users/auth`, { email, password });
       localStorage.setItem('username', response.data.username);
       setLoggedIn(true);
     } catch (error) {
@@ -38,7 +38,8 @@ function SignUp({ setLoggedIn }) {
 
   const handleSignUp = async () => {
     try {
-      await axios.post(`${backendUrl}/users`, { username, email, password, isAdmin });
+      await axios.post(`/users`, { username, email, password, isAdmin });
+      localStorage.setItem('username', response.data.username);
       setLoggedIn(true);
     } catch (error) {
       console.error('Error signing up: ', error);
@@ -71,7 +72,7 @@ function Dashboard() {
     setIsGenerating(true);
     try {
       const username = localStorage.getItem('username');
-      const response = await axios.post(`${backendUrl}/files/generate_music`, { username, textPrompt }, {
+      const response = await axios.post(`/files/generate_music`, { username, textPrompt }, {
         withCredentials: true // automatically sends cookies
       });
       setDownloadLink(response.data.downloadLink);
@@ -89,7 +90,7 @@ function Dashboard() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${backendUrl}/users/logout`, {}, {
+      await axios.post(`/users/logout`, {}, {
         withCredentials: true // automatically sends cookies
       });
       window.location.href = '/login';

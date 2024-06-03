@@ -17,18 +17,25 @@ const generateMusic = asyncHandler(async (req, res) => {
     // Generate unqiue fileId fir the music file
     const fileId = generateUniqueFileId();
 
-    // Create filePath to store the generated music file
-    const tempDir = path.join(process.cwd(), 'tmp');
-    if (!fs.existsSync(tempDir)) {
-        fs.mkdirSync(tempDir, { recursive: true });
+    let filePath;
+    try {
+        // Create a directory path within the /tmp directory
+        const tempDir = path.join('/tmp', 'music_files');
+        if (!fs.existsSync(tempDir)) {
+            fs.mkdirSync(tempDir, { recursive: true });
+        }
+        filePath = path.join(tempDir, fileId + '.txt');
+
+        // generate txt file and store it in the filePath
+        fs.writeFileSync(filePath, textPrompt);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Error writing to file' + error });
     }
-    const filePath = path.join(tempDir, fileId + '.txt');
+
 
     // create new file object
     const file = new File({ username, fileId, filePath, textPrompt });
-
-    // generate txt file and store it in the filePath
-    fs.writeFileSync(filePath, textPrompt);
 
     // Set timer to delete file from server
     deleteFileAfterDelay(filePath, 10000);
@@ -37,10 +44,11 @@ const generateMusic = asyncHandler(async (req, res) => {
     try {
         await file.save();
         res.status(201).json({
+            username: file.username,
             fileId: file.fileId,
             filePath: file.filePath,
             textPrompt: file.textPrompt,
-            downloadLink: "https://wubble-test.vercel.app/files/download/" + file.fileId,
+            downloadLink: "/files/download/" + file.fileId,
         });
     } catch (error) {
         res.status(400);

@@ -16,13 +16,15 @@ connectDB();
 
 const app = express();
 
-// Handle preflight requests
-app.options('*', (req, res) => {
-    res.sendStatus(200);
-});
+// // Handle preflight requests
+// app.options('*', (req, res) => {
+//     res.sendStatus(200);
+// });
+
+app.use(express.static("public"));
 
 app.use(cors({
-    origin: "https://music-generation-platform-3xjf.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true
 }));
 

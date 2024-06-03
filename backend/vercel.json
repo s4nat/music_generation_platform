@@ -22,7 +22,7 @@
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "https://music-generation-platform-3xjf.vercel.app"
+                    "value": "http  ://localhost:3000"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",
